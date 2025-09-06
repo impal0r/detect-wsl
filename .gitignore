@@ -1,0 +1,13 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+
+# Distribution / packaging
+MANIFEST
+wheels/
+
+# Editors
+.vscode
+!.vscode/extensions.json
+.DS_Store
