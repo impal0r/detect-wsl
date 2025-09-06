@@ -1,10 +1,10 @@
 # Detect whether python is inside WSL
 
-Sometimes, it matters whether you are running the native Windows version of Python, or the one installed inside WSL. Sometimes, it also matters whether you are running the native version from inside WSL (e.g. you want to modify the clipboard).
+Sometimes, it matters whether you are running the native Windows version of Python, or the one installed inside WSL (Windows Subsystem for Linux). Sometimes, it also matters whether you are running the native version from inside WSL (e.g. you want to modify the clipboard).
 
 Now, Python can figure it out for you.
 
-This script checks in the usual places (`platform.uname()`, `sys.platform`) to figure out which OS Python is running under. Then, it does extra checks, including finding Python's parent processes on Windows to see if WSL is one of them.
+This script checks in the usual places (`platform.uname()`, `sys.platform`) to figure out which OS Python is running under. Then, it checks the OS version name to check if it's WSL on Linux, and finds Python's parent processes on Windows to see if WSL is one of them.
 
 ### Usage
 
