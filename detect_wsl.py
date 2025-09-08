@@ -69,15 +69,17 @@ class OS_environment_record:
 
     def explain(self):
         explanation = []
-        explanation.append(f'Python is running in {self.os_type} ({self.os_name})')
-        explanation.append(f'with release "{self.uname_result.release}", '
+        explanation.append(f'Python is running inside {self.os_type} ({self.os_name})')
+        explanation.append(f'with OS release "{self.uname_result.release}", '
                            f'version "{self.uname_result.version}", '
                            f'compiled for {self.uname_result.machine}')
         if self.is_wsl_python:
             explanation.append('(This is a WSL instance on a Windows machine)')
         elif self.is_win32_launched_from_wsl:
             explanation.append('But this instance was launched from inside WSL:')
+            # get a list of the executables that caused Python to run (including Python itself)
             ancestry = reversed(get_win32_process_ancestry()) #reverse so python.exe is last
+            # list just the filenames of the executables
             explanation.append(' -> '.join(os.path.basename(path) for path in ancestry))
         elif self.os_name == 'win32':
             if is_wsl_installed():
@@ -86,7 +88,3 @@ class OS_environment_record:
             else:
                 explanation.append('WSL is not installed')
         return '\n'.join(explanation)
-        
-
-
-

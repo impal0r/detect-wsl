@@ -1,10 +1,12 @@
 # Detect whether python is inside WSL
 
-Sometimes, it matters whether you are running the native Windows version of Python, or the one installed inside WSL (Windows Subsystem for Linux). Sometimes, it also matters whether you are running the native version from inside WSL (e.g. you want to modify the clipboard).
+Sometimes, it matters whether you are running the native Windows version of Python, or the one installed inside WSL (Windows Subsystem for Linux). Sometimes, it also matters whether you are running the native installation from inside WSL (programs like python.exe installed on the host machine are accessible from inside WSL and you can run them). If you want to modify the clipboard to copy something, for example, the default method doesn't work from inside WSL even if you're running python.exe.
 
 Now, Python can figure it out for you.
 
-This script checks in the usual places (`platform.uname()`, `sys.platform`) to figure out which OS Python is running under. Then, it checks the OS version name to check if it's WSL on Linux, and finds Python's parent processes on Windows to see if WSL is one of them.
+This tool checks in the usual places (`platform.uname()`, `sys.platform`) to figure out which OS Python is running in. If the OS is a Linux distro, it checks the OS version name to see if it's WSL-flavoured. If the OS is Windows, it looks up Python's parent processes to see if WSL is one of them.
+
+This covers all possible cases on a Windows computer, and has the upshot of telling you which chain of process parents ended up spawning the currently running Python instance - potentially a useful debug tool.
 
 ### Usage
 
@@ -22,8 +24,14 @@ if env.os_type == 'Windows':
         print('You are running a Windows version of Python from outside WSL')
 ```
 
-### Human-readable interface
+### Human-readable output
 
+On the command line:
+```
+> python -m detect-wsl
+```
+
+In your code:
 ```py
 from detect_wsl import get_OS_environment
 print(get_OS_environment().explain())
@@ -32,5 +40,6 @@ print(get_OS_environment().explain())
 ```
 Python is running in Windows (win32)
 with release "10", version "10.0.19045", compiled for AMD64
-WSL appears to be installed but is not being used by this Python instance
+But this script was launched from inside WSL:
+explorer.exe -> wsl.exe -> python.exe
 ```
