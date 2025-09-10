@@ -8,7 +8,22 @@ This tool checks in the usual places (`platform.uname()`, `sys.platform`) to fig
 
 This covers all possible cases on a Windows computer, and has the upshot of telling you which chain of process parents ended up spawning the currently running Python instance - potentially a useful debug tool.
 
-### Usage
+### Installation
+
+You can install detect-wsl from TestPyPI:
+
+```
+pip install -i https://test.pypi.org/simple/ detect-wsl
+```
+
+Works on: Python 3.6+
+- format-string syntax was introduced in Python 3.6
+- you might get some warnings in Python 3.6~3.8, but the code worked on my machine
+
+Fully supported python versions: 3.9+
+- result caching supported, which speeds up subsequent calls to the functions in detect_wsl (using `functools.cache`)
+
+### How to use
 
 ```py
 from detect_wsl import get_OS_environment
@@ -28,7 +43,7 @@ if env.os_type == 'Windows':
 
 On the command line:
 ```
-> python -m detect-wsl
+python -m detect_wsl
 ```
 
 In your code:

@@ -1,0 +1,22 @@
+[build-system]
+requires      = ["setuptools >= 77.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "detect-wsl"
+version = "0.1.1"
+description = "Check if you're running in WSL (Windows Subsystem for Linux)"
+readme = "README.md"
+authors = [{ name = "Vlad Penzyev" }]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+keywords = ["WSL", "Windows", "winapi", "environment", "process", "parent", "contain", "debug"]
+dependencies = []
+requires-python = ">= 3.6"
+
+[project.urls]
+Homepage = "https://github.com/impal0r/detect-wsl/"

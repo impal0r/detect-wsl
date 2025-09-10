@@ -6,6 +6,12 @@ __pycache__/
 # Distribution / packaging
 MANIFEST
 wheels/
+*.egg-info
+build/
+dist/
+
+# Test outputs
+test/*.out
 
 # Editors
 .vscode

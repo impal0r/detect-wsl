@@ -1,19 +1,26 @@
-import platform, sys, functools, shutil
+import platform, sys, shutil
 import os.path
 
+try:
+    from functools import cache #added in python 3.9
+except ImportError:
+    # don't implement result caching if python version <= 3.8
+    def cache(func):
+        return func
+
 # https://stackoverflow.com/questions/1854/how-to-identify-which-os-python-is-running-on/58071295#58071295
-@functools.cache
+@cache
 def get_os_type():
     #'Windows', 'Linux' or 'Darwin'
     return platform.system()
-@functools.cache
+@cache
 def get_os_name():
     #'win32', 'win16', 'linux', 'linux2', 'darwin', 'freebsd8', etc
     #Calls OS-specific APIs to get the OS name as defined by the OS
     return sys.platform
 
 # https://askubuntu.com/questions/1177729/wsl-am-i-running-version-1-or-version-2
-@functools.cache
+@cache
 def is_os_wsl(os_release: str = None):
     if get_os_type() != 'Linux':
         return False
@@ -21,7 +28,7 @@ def is_os_wsl(os_release: str = None):
     return (os_release.endswith('Microsoft') or
             os_release.endswith('microsoft-standard-WSL2'))
 
-@functools.cache
+@cache
 def get_win32_process_ancestry():
     if get_os_name() != 'win32':
         raise OSError('This function only works on Win32 systems')
